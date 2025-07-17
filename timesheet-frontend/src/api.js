@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-const api = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE || 'http://localhost:5000',
+const instance = axios.create({
+  baseURL: 'https://timesheet-app-cjul.onrender.com/', // ✅ Replace with actual deployed backend
+  withCredentials: true
 });
 
-export default api;
+export default instance;
