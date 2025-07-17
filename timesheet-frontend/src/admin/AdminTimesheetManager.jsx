@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
+import api from '../api';
 import {
 Table,
 Spinner,
@@ -29,8 +29,8 @@ const [totalsByEmployee, setTotalsByEmployee] = useState({});
 const load = async () => {
 setLoading(true);
 try {
-const { data } = await axios.get(
-'http://localhost:5000/api/admin/timesheets',
+const { data } = await api.get(
+'/api/admin/timesheets',
 { headers: { Authorization: `Bearer ${user.token}` } }
 );
 setSheets(data);
@@ -87,8 +87,8 @@ calculateTotals(temp);
 // Approve / Reject / Delete
 const updateStatus = async (id, action) => {
 try {
-await axios.put(
-`http://localhost:5000/api/admin/timesheets/${id}/${action}`,
+await api.put(
+`/api/admin/timesheets/${id}/${action}`,
 {},
 { headers: { Authorization: `Bearer ${user.token}` } }
 );
@@ -101,8 +101,8 @@ alert('Action failed');
 const remove = async id => {
 if (!window.confirm('Delete this timesheet?')) return;
 try {
-await axios.delete(
-`http://localhost:5000/api/admin/timesheets/${id}`,
+await api.delete(
+`/api/admin/timesheets/${id}`,
 { headers: { Authorization: `Bearer ${user.token}` } }
 );
 load();

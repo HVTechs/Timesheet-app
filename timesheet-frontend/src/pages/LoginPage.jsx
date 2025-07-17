@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import axios from '../api/axios';
+import api from '../api'; // centralized axios instance
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError('');
     try {
-      const { data } = await axios.post('/api/users/login', { email, password });
+      const { data } = await api.post('/api/users/login', { email, password });
       login(data);
       navigate(data.role === 'admin' ? '/admin' : '/dashboard');
     } catch (err) {

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { AuthContext } from '../context/AuthContext';
 import { Card, Spinner, Alert } from 'react-bootstrap';
 import BackHomeButtons from '../components/BackHomeButtons';
@@ -13,7 +13,7 @@ const [error, setError] = useState('');
 useEffect(() => {
 const fetch = async () => {
 try {
-const { data } = await axios.get('http://localhost:5000/api/users/me', {
+const { data } = await api.get('/api/users/me', {
 headers: { Authorization: `Bearer ${user.token}` }
 });
 setProfile(data);

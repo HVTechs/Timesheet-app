@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import api from '../api';
 import {
 Table,
 Form,
@@ -26,8 +26,8 @@ const [totalHrs, setTotalHrs] = useState(0);
 const load = async () => {
 setLoading(true);
 try {
-const { data } = await axios.get(
-'http://localhost:5000/api/timesheets/my',
+const { data } = await api.get(
+'/api/timesheets/my',
 { headers: { Authorization: `Bearer ${user.token}` } }
 );
 setSheets(data);

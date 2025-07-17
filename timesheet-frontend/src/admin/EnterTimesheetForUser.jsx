@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 import { AuthContext } from '../context/AuthContext';
 import BackHomeButtons from '../components/BackHomeButtons';
@@ -13,7 +13,7 @@ const [error, setError] = useState('');
 const [success, setSuccess] = useState('');
 
 useEffect(() => {
-axios.get('http://localhost:5000/api/admin/users', {
+api.get('/api/admin/users', {
 headers: { Authorization: `Bearer ${user.token}` }
 })
 .then(res => setUsers(res.data))
@@ -27,7 +27,7 @@ const onSubmit = async e => {
 e.preventDefault();
 setError(''); setSuccess('');
 try {
-await axios.post('http://localhost:5000/api/admin/timesheets/enter', {
+await api.post('/api/admin/timesheets/enter', {
 userId: form.userId,
 startTime: `${form.date}T${form.start}`,
 endTime: `${form.date}T${form.end}`,

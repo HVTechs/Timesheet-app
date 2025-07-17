@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import axios from '../api/axios';
+import api from '../api';
 import { AuthContext } from '../context/AuthContext';
 import { Form, Button, Alert } from 'react-bootstrap';
 import BackHomeButtons from '../components/BackHomeButtons';
@@ -16,7 +16,7 @@ const submit = async e => {
 e.preventDefault();
 setError(''); setSuccess('');
 try {
-await axios.post('/api/admin/users', form, {
+await api.post('/api/admin/users', form, {
 headers: { Authorization: `Bearer ${user.token}` }
 });
 setSuccess('User added');

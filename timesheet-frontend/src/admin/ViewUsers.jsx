@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Table, Spinner, Alert, Button } from 'react-bootstrap';
 import { AuthContext } from '../context/AuthContext';
 import BackHomeButtons from '../components/BackHomeButtons';
@@ -15,8 +15,8 @@ const [success, setSuccess] = useState('');
 const loadUsers = async () => {
 setLoading(true);
 try {
-const { data } = await axios.get(
-'http://localhost:5000/api/admin/users',
+const { data } = await api.get(
+'/api/admin/users',
 { headers: { Authorization: `Bearer ${user.token}` } }
 );
 setUsers(data);
@@ -37,8 +37,8 @@ const handleDelete = async (id) => {
 if (!window.confirm('Delete this user?')) return;
 
 try {
-await axios.delete(
-`http://localhost:5000/api/admin/users/${id}`,
+await api.delete(
+`/api/admin/users/${id}`,
 { headers: { Authorization: `Bearer ${user.token}` } }
 );
 setSuccess('User deleted successfully');
@@ -54,8 +54,8 @@ const newPassword = window.prompt('Enter new password (min 6 chars):');
 if (!newPassword) return;
 
 try {
-await axios.put(
-`http://localhost:5000/api/admin/users/${id}/reset-password`,
+await api.put(
+`/api/admin/users/${id}/reset-password`,
 { newPassword },
 { headers: { Authorization: `Bearer ${user.token}` } }
 );
