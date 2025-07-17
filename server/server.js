@@ -10,7 +10,10 @@ const adminRoutes     = require('./routes/adminRoutes');
 const app = express();
 connectDB();
 
-app.use(cors({ origin: process.env.FRONTEND_URL }));
+app.use(cors({
+  origin: 'https://timesheet-app-hhtr-ocj4scupm-hemanths-projects-4fb5e42a.vercel.app',
+  credentials: true
+}));
 app.use(express.json());
 
 app.use('/api/users',      userRoutes);
