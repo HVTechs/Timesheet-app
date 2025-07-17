@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
+import axios from '../api/axios';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError('');
     try {
-      const { data } = await axios.post('http://localhost:5000/api/users/login', { email, password });
+      const { data } = await axios.post('/api/users/login', { email, password });
       login(data);
       navigate(data.role === 'admin' ? '/admin' : '/dashboard');
     } catch (err) {
