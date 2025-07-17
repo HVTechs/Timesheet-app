@@ -10,10 +10,23 @@ const adminRoutes     = require('./routes/adminRoutes');
 const app = express();
 connectDB();
 
+// ✅ CORS settings — allow localhost + your deployed frontend
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://timesheet-app-hemanth.vercel.app'
+];
+
 app.use(cors({
-  origin: 'https://timesheet-app-hhtr-ocj4scupm-hemanths-projects-4fb5e42a.vercel.app',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('❌ Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
+
 app.use(express.json());
 
 app.use('/api/users',      userRoutes);
