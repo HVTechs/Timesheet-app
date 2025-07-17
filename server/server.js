@@ -12,7 +12,7 @@ connectDB();
 
 // ✅ CORS settings — allow localhost + your deployed frontend
 const allowedOrigins = [
-  'http://localhost:3000',
+  'http://localhost:5173',
   'https://timesheet-app-hemanth.vercel.app'
 ];
 
