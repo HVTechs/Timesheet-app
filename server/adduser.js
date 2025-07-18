@@ -1,42 +1,40 @@
-// addUser.js
-
-require('dotenv').config();
+// ✅ adduser.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const dotenv = require('dotenv');
+dotenv.config();
 
-// Replace with your actual User model path
 const User = require('./models/User');
+const connectDB = require('./db');
 
-// Replace these with the user details you want to add
-const name     = 'Admin';
-const email    = 'admin@example.com';
-const password = 'admin123';
-const role     = 'admin';
-
-const MONGO_URI = process.env.MONGO_URI;
-
-async function addUser() {
+const addUser = async () => {
   try {
-    await mongoose.connect(MONGO_URI);
-    console.log('✅ Connected to MongoDB');
+    await connectDB();
 
-    const existing = await User.findOne({ email });
-    if (existing) {
-      console.log('⚠️ User already exists with this email.');
-      return;
-    }
-
+    const email = 'test@example.com';
+    const password = 'test1234';
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = new User({ name, email, password: hashedPassword, role });
-    await user.save();
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      console.log('⚠️ User already exists');
+      process.exit(0);
+    }
 
+    const user = new User({
+      name: 'Test User',
+      email,
+      password: hashedPassword, // ✅ Manually hashed
+      role: 'admin'
+    });
+
+    await user.save();
     console.log('✅ User added successfully');
+    process.exit();
   } catch (err) {
-    console.error('❌ Error adding user:', err);
-  } finally {
-    mongoose.disconnect();
+    console.error('❌ Error adding user:', err.message);
+    process.exit(1);
   }
-}
+};
 
 addUser();
