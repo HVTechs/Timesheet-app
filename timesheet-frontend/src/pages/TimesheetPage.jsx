@@ -129,8 +129,8 @@ onChange={onFilterChange}
 {filteredSheets.map(ts => (
 <tr key={ts._id}>
 <td>{new Date(ts.startTime).toLocaleDateString('en-GB', { timeZone: 'Australia/Sydney' })}</td>
-<td>{new Date(ts.startTime).toLocaleTimeString('en-GB', { timeZone: 'Australia/Sydney' })}</td>
-<td>{new Date(ts.endTime).toLocaleTimeString('en-GB', { timeZone: 'Australia/Sydney' })}</td>
+<td>{new Date(ts.startTime).toLocaleTimeString('en-GB', { timeZone: 'Australia/Sydney', hour12: false })}</td>
+<td>{new Date(ts.endTime).toLocaleTimeString('en-GB', { timeZone: 'Australia/Sydney', hour12: false })}</td>
 <td>{ts.breakMinutes}</td>
 <td>{ts.hoursWorked.toFixed(2)}</td>
 <td>{ts.status}</td>
