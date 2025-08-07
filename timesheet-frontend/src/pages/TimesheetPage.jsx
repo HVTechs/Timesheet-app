@@ -126,16 +126,36 @@ onChange={onFilterChange}
 </tr>
 </thead>
 <tbody>
-{filteredSheets.map(ts => (
+{filteredSheets.map(ts => {
+const startTimeFormatter = new Intl.DateTimeFormat('en-GB', {
+timeZone: 'Australia/Sydney',
+hour: '2-digit',
+minute: '2-digit',
+second: '2-digit',
+hour12: false
+});
+const endTimeFormatter = new Intl.DateTimeFormat('en-GB', {
+timeZone: 'Australia/Sydney',
+hour: '2-digit',
+minute: '2-digit',
+second: '2-digit',
+hour12: false
+});
+const formattedStart = startTimeFormatter.format(new Date(ts.startTime));
+const formattedEnd = endTimeFormatter.format(new Date(ts.endTime));
+console.log('startTime raw:', ts.startTime, 'formatted:', formattedStart);
+console.log('endTime raw:', ts.endTime, 'formatted:', formattedEnd);
+return (
 <tr key={ts._id}>
 <td>{new Date(ts.startTime).toLocaleDateString('en-GB', { timeZone: 'Australia/Sydney' })}</td>
-<td>{new Date(ts.startTime).toLocaleTimeString('en-GB', { timeZone: 'Australia/Sydney', hour12: false })}</td>
-<td>{new Date(ts.endTime).toLocaleTimeString('en-GB', { timeZone: 'Australia/Sydney', hour12: false })}</td>
+<td>{formattedStart}</td>
+<td>{formattedEnd}</td>
 <td>{ts.breakMinutes}</td>
 <td>{ts.hoursWorked.toFixed(2)}</td>
 <td>{ts.status}</td>
 </tr>
-))}
+);
+})}
 </tbody>
 </Table>
 </div>
